@@ -26,13 +26,13 @@ namespace logiql {
 
       std::vector<boost::gregorian::date> ans;
       int freq_in_months = PaymentFrequencyToMonths(freq);
-      int offset(0);
-      boost::gregorian::date payment_date;
-      do {
+      boost::gregorian::date payment_date(maturity_date);
+      int offset = 0;
+      while ( (payment_date = maturity_date - boost::gregorian::months(freq_in_months * offset)) > issue_date) {
         //no push front        
-        ans.push_back(payment_date = maturity_date - boost::gregorian::months(freq_in_months * offset));
+        ans.push_back(payment_date);
         ++offset;
-      } while(payment_date > issue_date);
+      }
       std::reverse(ans.begin(),ans.end());
       return ans;
     }
