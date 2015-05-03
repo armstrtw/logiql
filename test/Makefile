@@ -7,3 +7,5 @@ LIBS =
 	$(CXX) $(CXXFLAGS) $(INC) $(LIBS) $< -o $@
 
 zero.coupon.bond.test: zero.coupon.bond.test.cpp
+fixed.coupon.bond.test: fixed.coupon.bond.test.cpp
+

@@ -1,13 +1,7 @@
 #include "boost/date_time/gregorian/gregorian.hpp"
-
-#include <logiql/simple.types.hpp>
 #include <logiql/bonds.hpp>
 
 using namespace logiql;
-
-class Calendar {
-  virtual bool isBusinessDay(const date& d) const = 0;
-};
 
 
 int main() {
