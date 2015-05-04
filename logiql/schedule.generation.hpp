@@ -3,27 +3,12 @@
 #include <stdexcept>
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <logiql/simple.types.hpp>
+#include <logiql/logiql.utils.hpp>
 
 namespace logiql {
   using namespace boost::gregorian;
 
-  class ScheduleGenerationRule {
-  public:
-    static int PaymentFrequencyToMonths(PaymentFrequencyT freq) {
-      switch(freq) {
-      case PaymentFrequencyT::Annual: return 12;
-      case PaymentFrequencyT::SemiAnnual: return 6;
-      case PaymentFrequencyT::Quarterly: return 3;
-      case PaymentFrequencyT::Monthly: return 1;
-      default:
-        throw std::range_error("Payment frequency" + std::to_string(static_cast<int>(freq)) + " not found");
-      }
-      // never gets here
-      return 0;
-    }
-  };
-
-  class BackwardFromMaturity : ScheduleGenerationRule {
+  class BackwardFromMaturity {
   public:
     static std::vector<date> paymentSchedule(date issue_date, date maturity_date, PaymentFrequencyT freq) {
 

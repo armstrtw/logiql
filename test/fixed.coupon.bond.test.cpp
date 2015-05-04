@@ -12,10 +12,16 @@ void printCashflows(Investment& b) {
 }
 
 int main() {
-  FixedCouponBond<ActualActual,NoAdjustment,BackwardFromMaturity> actual_actual(date(2000,1,1),date(2015,12,31),5.25,PaymentFrequencyT::SemiAnnual,100);
+  FixedCouponBond<ActualActual,NoAdjustment,BackwardFromMaturity,RegularCoupon> actual_actual(date(2000,1,1),date(2015,12,31),5.25,PaymentFrequencyT::SemiAnnual,100);
   printCashflows(actual_actual);
+  std::cout << "------------" << std::endl;
 
-  FixedCouponBond<Actual365Fixed,NoAdjustment,BackwardFromMaturity> actual_365(date(2000,1,1),date(2015,12,31),5.25,PaymentFrequencyT::SemiAnnual,100);
+  FixedCouponBond<Actual365Fixed,NoAdjustment,BackwardFromMaturity,RegularCoupon> actual_365(date(2000,1,1),date(2015,12,31),5.25,PaymentFrequencyT::SemiAnnual,100);
   printCashflows(actual_365);
+  std::cout << "------------" << std::endl;
+
+  FixedCouponBond<Actual365Fixed,NoAdjustment,BackwardFromMaturity,CouponBasedOnCalendar> actual_365_calendarcoupon(date(2000,1,1),date(2015,12,31),5.25,PaymentFrequencyT::SemiAnnual,100);
+  printCashflows(actual_365_calendarcoupon);
+  std::cout << "------------" << std::endl;
   return 0;
 }

@@ -5,6 +5,7 @@
 #include <logiql/schedule.generation.hpp>
 #include <logiql/businessday.policies.hpp>
 #include <logiql/daycount.policies.hpp>
+#include <logiql/coupon.policies.hpp>
 
 namespace logiql {
   using namespace boost::gregorian;
@@ -14,7 +15,10 @@ namespace logiql {
     virtual CashFlowsT cashflows() const = 0; // posibly with start date arg?
   };
 
-  template<class DayCounter, class BusinessDayConvention, class CalendarGeneration>
+  template<class DayCounter,
+           class BusinessDayConvention,
+           class CalendarGeneration,
+           template<class> class CouponCalculationPolicy>
   class FixedCouponBond : public Investment {
     const date issue_date_;
     const date maturity_date_;
@@ -29,7 +33,7 @@ namespace logiql {
       for(int i = 0; i < paymentDates.size(); ++i) {
         date accrual_start = i > 0 ? paymentDates[i - 1] : issue_date_;
         date accrual_end = paymentDates[i];
-        double payment = redeption_value_ * coupon_ / 100 * DayCounter::yearFraction(accrual_start,accrual_end);        
+        double payment = CouponCalculationPolicy<DayCounter>::paymentCalculation(redeption_value_, coupon_, payment_frequency_, accrual_start, accrual_end);
         ans.push_back({ paymentDates[i], payment });
       }
       // last date add in principal
