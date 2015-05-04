@@ -9,3 +9,5 @@ LIBS =
 zero.coupon.bond.test: zero.coupon.bond.test.cpp
 fixed.coupon.bond.test: fixed.coupon.bond.test.cpp
 
+clean:
+	rm -f zero.coupon.bond.test fixed.coupon.bond.test
