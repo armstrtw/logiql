@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 #include <logiql/simple.types.hpp>
-#include <logiql/calendar.conventions.hpp>
+#include <logiql/schedule.generation.hpp>
 #include <logiql/businessday.policies.hpp>
 #include <logiql/daycount.policies.hpp>
 
