@@ -5,7 +5,7 @@
 #include <logiql/simple.types.hpp>
 
 namespace logiql {
-
+  using namespace boost::gregorian;
   
   int PaymentFrequencyToMonths(PaymentFrequencyT freq) {
     switch(freq) {
@@ -22,13 +22,13 @@ namespace logiql {
 
   class BackwardFromMaturity {
   public:
-    static std::vector<boost::gregorian::date> paymentSchedule(boost::gregorian::date issue_date, boost::gregorian::date maturity_date, PaymentFrequencyT freq) {
+    static std::vector<date> paymentSchedule(date issue_date, date maturity_date, PaymentFrequencyT freq) {
 
-      std::vector<boost::gregorian::date> ans;
+      std::vector<date> ans;
       int freq_in_months = PaymentFrequencyToMonths(freq);
-      boost::gregorian::date payment_date(maturity_date);
+      date payment_date(maturity_date);
       int offset = 0;
-      while ( (payment_date = maturity_date - boost::gregorian::months(freq_in_months * offset)) > issue_date) {
+      while ( (payment_date = maturity_date - months(freq_in_months * offset)) > issue_date) {
         //no push front        
         ans.push_back(payment_date);
         ++offset;
