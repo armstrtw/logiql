@@ -21,6 +21,10 @@ namespace logiql {
       return true;
     }
 
+    bool isHoliday(const date& day) {
+      !isBusinessDay(day);
+    }
+
     date nextBusinessDay(const date& day) {
       day_iterator it(day);
       while (!isBusinessDay(*++it)) {}
