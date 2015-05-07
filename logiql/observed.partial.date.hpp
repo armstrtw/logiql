@@ -20,7 +20,7 @@ namespace boost {
     // Same operation as the orginal class (per below)
     // with the following modifications:
     // Saturday dates are rolled back to Friday
-    // Saturday dates are rolled forward to Monday
+    // Sunday dates are rolled forward to Monday
 
     //! Generates a date by applying the year to the given month and day.
     /*!
