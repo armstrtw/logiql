@@ -22,7 +22,7 @@ namespace logiql {
     }
 
     bool isHoliday(const date& day) {
-      !isBusinessDay(day);
+      return !isBusinessDay(day);
     }
 
     date nextBusinessDay(const date& day) {
