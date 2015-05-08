@@ -13,7 +13,7 @@ namespace logiql {
     static std::vector<date> paymentSchedule(date issue_date, date maturity_date, PaymentFrequencyT freq) {
 
       std::vector<date> ans;
-      int freq_in_months = PaymentFrequencyToMonths(freq);
+      int freq_in_months = paymentFrequencyToMonths(freq);
       date payment_date(maturity_date);
       int offset = 0;
       while ( (payment_date = maturity_date - months(freq_in_months * offset)) > issue_date) {
