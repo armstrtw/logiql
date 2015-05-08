@@ -9,9 +9,6 @@ namespace logiql {
 
   class DayCounter {
   public:
-    static double julianDiff(date accrual_start,date accrual_end) {
-      return date_duration(accrual_end - accrual_start).days();
-    }
 
     static int daysInYear(greg_year y) {
       return gregorian_calendar::is_leap_year(y) ? 366 : 365;

@@ -6,6 +6,9 @@
 namespace logiql {
   using namespace boost::gregorian;
 
+  double julianDiff(date accrual_start,date accrual_end) {
+      return date_duration(accrual_end - accrual_start).days();
+  }
 
   int paymentFrequencyToMonths(PaymentFrequencyT freq) {
     switch(freq) {
