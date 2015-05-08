@@ -14,7 +14,7 @@ namespace logiql {
   class RegularCoupon {
   public:
     static double paymentCalculation(double face_value, double coupon, PaymentFrequencyT freq, date accrual_start, date accrual_end) {
-      return face_value * coupon / 100 / static_cast<double>(PaymentFrequencyToPaymentsPerYear(freq));
+      return face_value * coupon / 100 / static_cast<double>(paymentFrequencyToPaymentsPerYear(freq));
     }
   };
 
