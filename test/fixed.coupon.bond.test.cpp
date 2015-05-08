@@ -1,5 +1,5 @@
 #include <boost/date_time/gregorian/gregorian.hpp>
-#include <logiql/bonds.hpp>
+#include <logiql/fixed.coupon.bond.hpp>
 
 using namespace logiql;
 using std::cout;
@@ -41,7 +41,7 @@ int main() {
   //cout << "clean price:" << actual_actual.cleanPrice(this_settle_date,2.1262576) << endl;
 
   cout << "duration:" << actual_actual.duration(this_settle_date,2.1262576) << endl;
-
+  cout << "yield from price: " << actual_actual.yield(this_settle_date, 98.890625) << endl;
   //cout << "yield to maturity:" << actual_actual.yield(this_settle_date, 93.6862237) << endl;
   //cout << ActualActual::yearFraction(date(2015,Feb,15),this_settle_date) << endl;
 
