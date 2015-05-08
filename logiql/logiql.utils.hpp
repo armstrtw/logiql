@@ -7,7 +7,7 @@ namespace logiql {
   using namespace boost::gregorian;
 
 
-  int PaymentFrequencyToMonths(PaymentFrequencyT freq) {
+  int paymentFrequencyToMonths(PaymentFrequencyT freq) {
     switch(freq) {
     case PaymentFrequencyT::Annual: return 12;
     case PaymentFrequencyT::SemiAnnual: return 6;
@@ -20,7 +20,17 @@ namespace logiql {
     return 0;
   }
 
-  int PaymentFrequencyToPaymentsPerYear(PaymentFrequencyT freq) {    
-    return 12L/PaymentFrequencyToMonths(freq);
-  }  
+  int paymentFrequencyToPaymentsPerYear(PaymentFrequencyT freq) {
+    switch(freq) {
+    case PaymentFrequencyT::Annual: return 1;
+    case PaymentFrequencyT::SemiAnnual: return 2;
+    case PaymentFrequencyT::Quarterly: return 4;
+    case PaymentFrequencyT::Monthly: return 12;
+    default:
+      throw std::range_error("Payment frequency" + std::to_string(static_cast<int>(freq)) + " not found");
+    }
+    // never gets here
+    return 0;
+  }
+
 } // namespace logiql
