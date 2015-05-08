@@ -2,26 +2,52 @@
 #include <logiql/bonds.hpp>
 
 using namespace logiql;
-using namespace boost::gregorian;
+using std::cout;
+using std::endl;
 
-void printCashflows(Investment& b) {
-    CashFlowsT b_cfs = b.cashflows();
-    for ( auto cf : b_cfs) {
-      std::cout << cf.first << " " << cf.second << std::endl;
-    }
+void printCashflows(Investment& b, date settle_date) {
+  cout << "Cashflows:" << endl;
+  CashFlowsT b_cfs = b.cashflows(settle_date);
+  for ( auto cf : b_cfs) {
+    std::cout << cf.first << " " << cf.second << std::endl;
+  }
 }
 
 int main() {
-  FixedCouponBond<ActualActual,NoAdjustment,BackwardFromMaturity,RegularCoupon> actual_actual(date(2000,1,1),date(2015,12,31),5.25,PaymentFrequencyT::SemiAnnual,100);
-  printCashflows(actual_actual);
+  // 912828J27
+  // Issue Date 02/17/15
+  // Maturity Date 02/15/25
+  // Coupon 2.000
+  // Cpn Frequency S/A
+  // Day Count ACT/ACT
+  // Price 98-28+	(98.890625)
+  // Settle 05/11/15
+  // Street Convention	2.1262576
+  // US Government Equivalent	2.1260990
+  // True Yield	2.1245324
+  // Equiv	1	/Yr Compound	2.1375600
+  // Duration 8.872
+  // Modified Duration 8.779
+  // Risk 8.722
+  // Convexity 0.864
+
+  date issue_date(2015,2,17);
+  FixedCouponBond<ActualActual,NoAdjustment,BackwardFromMaturity> actual_actual(issue_date,date(2025,02,15),2.0,PaymentFrequencyT::SemiAnnual,100);
+
+  date this_settle_date(2015,5,11);
+  cout << "years to maturity:" << actual_actual.yearsToMaturity(this_settle_date) << endl;
+  cout << "accrued:" << actual_actual.accruedInterest(this_settle_date) << endl;
+  //cout << "dirty price:" << actual_actual.dirtyPrice(this_settle_date,2.1262576) << endl;
+  //cout << "clean price:" << actual_actual.cleanPrice(this_settle_date,2.1262576) << endl;
+
+  cout << "duration:" << actual_actual.duration(this_settle_date,2.1262576) << endl;
+
+  //cout << "yield to maturity:" << actual_actual.yield(this_settle_date, 93.6862237) << endl;
+  //cout << ActualActual::yearFraction(date(2015,Feb,15),this_settle_date) << endl;
+
+  //printCashflows(actual_actual,this_settle_date);
   std::cout << "------------" << std::endl;
 
-  FixedCouponBond<Actual365Fixed,NoAdjustment,BackwardFromMaturity,RegularCoupon> actual_365(date(2000,1,1),date(2015,12,31),5.25,PaymentFrequencyT::SemiAnnual,100);
-  printCashflows(actual_365);
-  std::cout << "------------" << std::endl;
 
-  FixedCouponBond<Actual365Fixed,NoAdjustment,BackwardFromMaturity,CouponBasedOnCalendar> actual_365_calendarcoupon(date(2000,1,1),date(2015,12,31),5.25,PaymentFrequencyT::SemiAnnual,100);
-  printCashflows(actual_365_calendarcoupon);
-  std::cout << "------------" << std::endl;
   return 0;
 }
