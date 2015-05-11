@@ -16,7 +16,7 @@ namespace logiql {
     HolidayImpl impl_;
   public:
     Holiday(HolidayImpl impl) : impl_(impl) {}
-
+    Holiday(std::vector<date> x) : impl_([x](date day) { return x.end() != std::find(x.begin(), x.end(), day); }) {}
     template<typename T>
     Holiday(T x) : impl_([x](date day) { return day == x; }) {}
 
