@@ -1,5 +1,5 @@
 #include <boost/date_time/gregorian/gregorian.hpp>
-#include <logiql/fixed.coupon.bond.hpp>
+#include <logiql/fixed.income/bonds/fixed.coupon.bond.hpp>
 
 using namespace logiql;
 using std::cout;

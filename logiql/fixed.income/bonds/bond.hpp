@@ -1,11 +1,8 @@
 #pragma once
 
 #include <stdexcept>
-
 #include <logiql/simple.types.hpp>
-#include <logiql/schedule.generation.hpp>
-#include <logiql/businessday.policies.hpp>
-#include <logiql/daycount.policies.hpp>
+#include <logiql/logiql.utils.hpp>
 
 namespace logiql {
   using namespace boost::gregorian;

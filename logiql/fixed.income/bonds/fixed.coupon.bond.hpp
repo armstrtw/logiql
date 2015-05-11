@@ -3,11 +3,11 @@
 #include <stdexcept>
 #include <boost/math/tools/roots.hpp>
 #include <logiql/simple.types.hpp>
-#include <logiql/schedule.generation.hpp>
-#include <logiql/businessday.policies.hpp>
-#include <logiql/daycount.policies.hpp>
-#include <logiql/bond.hpp>
-#include <logiql/bond.helpers.hpp>
+#include <logiql/fixed.income/bonds/bond.hpp>
+#include <logiql/fixed.income/bonds/yeild.root.functor.hpp>
+#include <logiql/policies/schedule.generation.policies.hpp>
+#include <logiql/policies/businessday.policies.hpp>
+#include <logiql/policies/daycount.policies.hpp>
 
 namespace logiql {
   using namespace boost::gregorian;
