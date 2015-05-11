@@ -32,9 +32,13 @@ namespace logiql {
       double ans = pow(redeption_value/clean_price,1/yearsToMaturity(settle_date)) - 1;
       return ans * 100;
     }
-    virtual double duration(date settle_date, double yield) const override {
+    virtual double macaulayDuration(date settle_date, double yield) const override {
       checkValidSettle(settle_date);
-      return daysToMaturity(settle_date)/365;
+      return yearsToMaturity(settle_date);
+    }
+    virtual double modifiedDuration(date settle_date, double yield) const override {
+      checkValidSettle(settle_date);
+      return macaulayDuration(settle_date, yield)/(1.0 + yield/100.0);
     }
     virtual CashFlowsT cashflows() const override {
       return CashFlowsT { { maturity_date, redeption_value} };

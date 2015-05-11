@@ -20,6 +20,7 @@ int main() {
   date this_settle_date(2015,5,11);
   cout << "years to maturity:" << zero.yearsToMaturity(this_settle_date) << endl;
   cout << "yield to maturity:" << zero.yield(this_settle_date, 93.6862237) << endl;
+  cout << "mod duration:" << zero.modifiedDuration(this_settle_date,2.1262576) << endl;
 
   CashFlowsT zero_cfs = zero.cashflows();
   cout << "Cashflows:" << endl;

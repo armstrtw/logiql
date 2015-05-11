@@ -80,7 +80,7 @@ namespace logiql {
                                     digits);
     }
 
-    virtual double duration(date settle_date, double yield) const override {
+    virtual double macaulayDuration(date settle_date, double yield) const override {
       checkValidSettle(settle_date);
       CashFlowsT cfs = cashflows(settle_date);
       double days_in_year(365);
@@ -90,6 +90,11 @@ namespace logiql {
         npv += cf.second;
       }
       return macd/npv;
+    }
+    virtual double modifiedDuration(date settle_date, double yield) const override {
+      checkValidSettle(settle_date);
+      double k = paymentFrequencyToPaymentsPerYear(payment_frequency);
+      return macaulayDuration(settle_date, yield)/(1.0 + yield/100.0/k);
     }
     virtual CashFlowsT cashflows() const override {
       CashFlowsT ans(payment_dates.size());

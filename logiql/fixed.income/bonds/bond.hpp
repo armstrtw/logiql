@@ -27,7 +27,8 @@ namespace logiql {
     virtual double cleanPrice(date settle_date, double yield) const = 0;
     virtual double dirtyPrice(date settle_date, double yield) const = 0;
     virtual double yield(date settle_date, double clean_price) const = 0;
-    virtual double duration(date settle_date, double yield) const = 0;
+    virtual double macaulayDuration(date settle_date, double yield) const = 0;
+    virtual double modifiedDuration(date settle_date, double yield) const = 0;
     double daysToMaturity(date settle_date) const {
       return julianDiff(settle_date,maturity_date);
     }
