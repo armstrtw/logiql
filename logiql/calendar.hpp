@@ -12,7 +12,7 @@ namespace logiql {
   public:
     Calendar(std::vector<Holiday> holidays) : holidays_(holidays) {}
 
-    bool isBusinessDay(const date& day) {
+    bool isBusinessDay(const date& day) const {
       for (auto h : holidays_) {
         if (h.match(day)) {
           return false;
@@ -21,23 +21,23 @@ namespace logiql {
       return true;
     }
 
-    bool isHoliday(const date& day) {
+    bool isHoliday(const date& day) const {
       return !isBusinessDay(day);
     }
 
-    date nextBusinessDay(const date& day) {
+    date nextBusinessDay(const date& day) const {
       day_iterator it(day);
       while (!isBusinessDay(*++it)) {}
       return *it;
     }
 
-    date prevBusinessDay(const date& day) {
+    date prevBusinessDay(const date& day) const {
       day_iterator it(day);
       while (!isBusinessDay(*--it)) {}
       return *it;
     }
 
-    std::vector<date> businessDays(const date& start_date, const date& end_date) {
+    std::vector<date> businessDays(const date& start_date, const date& end_date) const {
       std::vector<date> ans;
       for (day_iterator it(start_date); it <= end_date; ++it) {
         if (isBusinessDay(*it)) {

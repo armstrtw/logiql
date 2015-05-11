@@ -20,7 +20,7 @@ namespace logiql {
     template<typename T>
     Holiday(T x) : impl_([x](date day) { return day == x; }) {}
 
-    bool match(date day) { return impl_(day); }
+    bool match(date day) const { return impl_(day); }
   };
 
 } // namespace logiql
