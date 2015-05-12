@@ -15,15 +15,16 @@ namespace logiql {
 
   template<class DayCounter,
            class BusinessDayConvention,
-           class CalendarGeneration>
+           template<typename> class ScheduleGeneration>
   class FixedCouponBond : public Bond {
   public:
     const double coupon;
     const PaymentFrequencyT payment_frequency;
     const std::vector<date> payment_dates;
 
-    FixedCouponBond(date issue_date_, date maturity_date_, double coupon_, PaymentFrequencyT payment_frequency_, double redeption_value_):
-      Bond(issue_date_, maturity_date_, redeption_value_), coupon(coupon_), payment_frequency(payment_frequency_), payment_dates(CalendarGeneration::paymentSchedule(issue_date, maturity_date, payment_frequency)) {}
+    FixedCouponBond(date issue_date_, date maturity_date_, double coupon_, PaymentFrequencyT payment_frequency_, double redeption_value_, const Calendar& calendar):
+      Bond(issue_date_, maturity_date_, redeption_value_, calendar), coupon(coupon_), payment_frequency(payment_frequency_),
+      payment_dates(ScheduleGeneration<BusinessDayConvention>::paymentSchedule(issue_date, maturity_date, payment_frequency, calendar)) {}
     double payment() const {
       return redeption_value * coupon / 100 / static_cast<double>(paymentFrequencyToPaymentsPerYear(payment_frequency));
     }
@@ -73,7 +74,7 @@ namespace logiql {
     virtual double yield(date settle_date, double clean_price) const override {
       checkValidSettle(settle_date);
       int digits = std::numeric_limits<double>::digits / 2;
-      return newton_raphson_iterate(YeildRootFunctor<FixedCouponBond<DayCounter,BusinessDayConvention,CalendarGeneration> >(*this,settle_date,clean_price),
+      return newton_raphson_iterate(YeildRootFunctor<FixedCouponBond<DayCounter,BusinessDayConvention,ScheduleGeneration> >(*this,settle_date,clean_price),
                                     coupon, // initial guess
                                     std::numeric_limits<double>::min(), // min, bound at zero for testing
                                     std::numeric_limits<double>::max(), // max

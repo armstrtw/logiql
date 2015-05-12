@@ -1,6 +1,5 @@
 #pragma once
 
-#include <stdexcept>
 #include <boost/date_time/gregorian/gregorian.hpp>
 
 namespace logiql {
@@ -8,9 +7,15 @@ namespace logiql {
 
   class NoAdjustment {
   public:
-    // also needs the calendar as an object
-    date adjust(date eventDate) {
+    static date adjust(date eventDate, const Calendar& cal) {
       return eventDate;
+    }
+  };
+
+  class Following {
+  public:
+    static date adjust(date eventDate, const Calendar& cal) {
+      return cal.nextBusinessDay(eventDate);
     }
   };
 

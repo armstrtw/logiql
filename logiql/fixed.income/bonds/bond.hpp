@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <logiql/simple.types.hpp>
 #include <logiql/logiql.utils.hpp>
+#include <logiql/calendar.hpp>
 
 namespace logiql {
   using namespace boost::gregorian;
@@ -19,9 +20,10 @@ namespace logiql {
     const date issue_date;
     const date maturity_date;
     const double redeption_value;
+    const Calendar& calendar;
 
-    Bond(date issue_date_, date maturity_date_, double redeption_value_):
-      issue_date(issue_date_),maturity_date(maturity_date_), redeption_value(redeption_value_) {}
+    Bond(date issue_date_, date maturity_date_, double redeption_value_, const Calendar& calendar_):
+      issue_date(issue_date_),maturity_date(maturity_date_), redeption_value(redeption_value_), calendar(calendar_) {}
 
     virtual double accruedInterest(date settle_date) const = 0;
     virtual double cleanPrice(date settle_date, double yield) const = 0;

@@ -31,8 +31,12 @@ int main() {
   // Risk 8.722
   // Convexity 0.864
 
+
+  typedef nth_day_of_the_week_in_month ndw;
+  Calendar us_cal({Saturday, Sunday, partial_date(1, Jan),ndw(ndw::third, Monday, Jan)});
+
   date issue_date(2015,2,17);
-  FixedCouponBond<ActualActual,NoAdjustment,BackwardFromMaturity> actual_actual(issue_date,date(2025,02,15),2.0,PaymentFrequencyT::SemiAnnual,100);
+  FixedCouponBond<ActualActual,Following,BackwardFromMaturity> actual_actual(issue_date,date(2025,02,15),2.0,PaymentFrequencyT::SemiAnnual,100,us_cal);
 
   date this_settle_date(2015,5,11);
   cout << "years to maturity:" << actual_actual.yearsToMaturity(this_settle_date) << endl;
@@ -45,7 +49,7 @@ int main() {
   //cout << "yield to maturity:" << actual_actual.yield(this_settle_date, 93.6862237) << endl;
   //cout << ActualActual::yearFraction(date(2015,Feb,15),this_settle_date) << endl;
 
-  //printCashflows(actual_actual,this_settle_date);
+  printCashflows(actual_actual,this_settle_date);
   std::cout << "------------" << std::endl;
 
 

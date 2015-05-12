@@ -13,8 +13,8 @@ namespace logiql {
 
   class ZeroCouponBond : public Bond {
   public:
-    ZeroCouponBond(date issue_date, date maturity_date, double redeption_value):
-      Bond(issue_date, maturity_date, redeption_value) {}
+    ZeroCouponBond(date issue_date, date maturity_date, double redeption_value, const Calendar& calendar):
+      Bond(issue_date, maturity_date, redeption_value, calendar) {}
     virtual double accruedInterest(date settle_date) const override {
       checkValidSettle(settle_date);
       return 0;
