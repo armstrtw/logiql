@@ -3,14 +3,10 @@ CXXFLAGS = -g -Wall -std=c++11
 INC=-I..
 LIBS =
 
-% : %.cpp
+bin/% : %.cpp
 	$(CXX) $(CXXFLAGS) $(INC) $(LIBS) $< -o $@
 
-all: zero.coupon.bond.test fixed.coupon.bond.test calendar.test
-
-zero.coupon.bond.test: zero.coupon.bond.test.cpp
-fixed.coupon.bond.test: fixed.coupon.bond.test.cpp
-calendar.test: calendar.test.cpp
+all: $(patsubst %.cpp, bin/%, $(wildcard *.cpp))
 
 clean:
-	rm -f zero.coupon.bond.test fixed.coupon.bond.test calendar.test
+	rm -f bin/*
