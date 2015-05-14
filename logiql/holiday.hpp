@@ -19,6 +19,8 @@ namespace logiql {
     Holiday(std::vector<date> x) : impl_([x](date day) { return x.end() != std::find(x.begin(), x.end(), day); }) {}
     template<typename T>
     Holiday(T x) : impl_([x](date day) { return day == x; }) {}
+    template<typename T>
+    Holiday(T x, date start, date end) : impl_([x, start, end](date day) { return day >= start && day <= end && day == x; }) {}
 
     bool match(date day) const { return impl_(day); }
   };
