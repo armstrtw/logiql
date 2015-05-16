@@ -36,4 +36,11 @@ namespace logiql {
     return 0;
   }
 
+  template<typename T, typename U>
+  T vectorShift(const T& vec, const U shift) {
+    T ans(vec);
+    for(auto &v : ans) { v+= shift; }
+    return ans;
+  }
+
 } // namespace logiql
