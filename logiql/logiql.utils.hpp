@@ -43,8 +43,7 @@ namespace logiql {
     return ans;
   }
 
-  template<typename T, typename U>
-  bool dateMatch(const T& x, const U& y) { return x == y; }
+  bool dateMatch(const date& d1, const date& d2) { return d1 == d2; }
 
   bool dateMatch(const date& d, const year_based_generator& pd) { return d == pd.get_date(d.year()); }
   bool dateMatch(const year_based_generator& pd, const date& d) { return d == pd.get_date(d.year()); }
