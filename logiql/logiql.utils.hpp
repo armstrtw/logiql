@@ -43,4 +43,13 @@ namespace logiql {
     return ans;
   }
 
+  template<typename T, typename U>
+  bool dateMatch(const T& x, const U& y) { return x == y; }
+
+  bool dateMatch(const date& d, const year_based_generator& pd) { return d == pd.get_date(d.year()); }
+  bool dateMatch(const year_based_generator& pd, const date& d) { return d == pd.get_date(d.year()); }
+
+  bool dateMatch(const date& d, const greg_weekday& wd) { return d.day_of_week() == wd; }
+  bool dateMatch(const greg_weekday& wd, const date& d) { return d.day_of_week() == wd; }
+
 } // namespace logiql
