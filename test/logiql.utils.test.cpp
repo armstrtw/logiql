@@ -5,6 +5,30 @@
 using namespace boost::gregorian;
 using namespace logiql;
 
+TEST_CASE("julianDiff performs date arithmetic") {
+  SECTION("the same date has 0 diff") {
+    date d(2015, 5, 15);
+    REQUIRE(julianDiff(d, d) == 0);
+  }
+  SECTION("forward dates have +ive diff") {
+    date d1(2015, 5, 15);
+    date d2(d1 + days(3));
+    REQUIRE(julianDiff(d1, d2) == 3);
+  }
+  SECTION("forward dates have -ive diff") {
+    date d1(2015, 5, 15);
+    date d2(d1 - days(3));
+    REQUIRE(julianDiff(d1, d2) == -3);
+  }
+}
+TEST_CASE("payment frequencies are coherent") {
+  SECTION("ToMonths and PerYear should multiply to 12") {
+    REQUIRE((paymentFrequencyToMonths(PaymentFrequencyT::Annual) * paymentFrequencyToPaymentsPerYear(PaymentFrequencyT::Annual)) == 12);
+    REQUIRE((paymentFrequencyToMonths(PaymentFrequencyT::SemiAnnual) * paymentFrequencyToPaymentsPerYear(PaymentFrequencyT::SemiAnnual)) == 12);
+    REQUIRE((paymentFrequencyToMonths(PaymentFrequencyT::Quarterly) * paymentFrequencyToPaymentsPerYear(PaymentFrequencyT::Quarterly)) == 12);
+    REQUIRE((paymentFrequencyToMonths(PaymentFrequencyT::Monthly) * paymentFrequencyToPaymentsPerYear(PaymentFrequencyT::Monthly)) == 12);
+  }
+}
 TEST_CASE("date/partial matching works") {
   SECTION("vanilla dates behave like ==") {
     date d(2015, 5, 15);

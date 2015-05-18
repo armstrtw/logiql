@@ -1,38 +1,47 @@
-#include <stdexcept>
+#define CATCH_CONFIG_MAIN
+#include "catch.hpp"
 #include <logiql/calendar.hpp>
 
 using namespace boost::gregorian;
 using namespace logiql;
 
-int main() {
-  // use January as an example
-  typedef nth_day_of_the_week_in_month ndw;
-  Calendar jan({
-    Saturday, Sunday, // weekends
-    partial_date(1, Jan), // New Years Day
-    ndw(ndw::third, Monday, Jan) // MLK day
-  });
+TEST_CASE("calendars can be constructed in many ways") {
+  date d(2015,5,15);
+  greg_weekday wd(Saturday);
+  partial_date pd(1,Jan);
 
-  // print business days
-  std::vector<date> busDays = jan.businessDays(date(2015, 1, 1), date(2015, 1, 31));
-  for ( auto d : busDays ) {
-    std::cout << d.day_of_week() << " " << d << std::endl;
-    if (!jan.isBusinessDay(d)) throw std::logic_error("Not a business day");
+  SECTION("from an explicit date") {
+    Calendar c({d});
+    REQUIRE(c.isHoliday(d));
   }
-
-  // test next/prev methods
-  for (auto it = busDays.begin(); it < busDays.end(); ++it) {
-    if (it > busDays.begin()) {
-      if (jan.prevBusinessDay(*it) != *(it-1)) {
-        throw std::logic_error("Prev business day doesn't match");
-      }
-    }
-    if (it < busDays.end()-1) {
-      if (jan.nextBusinessDay(*it) != *(it+1)) {
-        throw std::logic_error("Next business day doesn't match");
-      }
+  SECTION("from a weekday") {
+    Calendar c({wd});
+    REQUIRE(c.isHoliday(date(2015,5,16)));
+  }
+  SECTION("from a partial date") {
+    Calendar c({pd});
+    REQUIRE(c.isHoliday(date(2015,1,1)));
+  }
+  SECTION("from a heterogeneous combination of the above") {
+    Calendar c({d, wd, pd});
+    REQUIRE(c.isHoliday(d));
+    REQUIRE(c.isHoliday(date(2015,5,16)));
+    REQUIRE(c.isHoliday(date(2015,1,1)));
+  }
+}
+TEST_CASE("business_day methods are consistent") {
+  Calendar c({Saturday, Sunday});
+  std::vector<date> bd = c.businessDays(date(2015,1,1),date(2015,1,31));
+  SECTION("all are business days and not holidays") {
+    for (auto d : bd) {
+      REQUIRE(c.isBusinessDay(d));
+      REQUIRE(!c.isHoliday(d));
     }
   }
-
-  return 0;
+  SECTION("next/prev methods work") {
+    for (auto it = bd.begin(); it < bd.end()-1; ++it) {
+      REQUIRE(c.nextBusinessDay(*it) == *(it+1));
+      REQUIRE(c.prevBusinessDay(*(it+1)) == *it);
+    }
+  }
 }
