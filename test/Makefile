@@ -1,6 +1,6 @@
 CXX = clang++
 CXXFLAGS = -g -Wall -std=c++11
-INC=-I..
+INC=-I.. -I/usr/include/catch
 LIBS =
 
 bin/% : %.cpp
