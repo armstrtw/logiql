@@ -26,7 +26,7 @@ namespace logiql {
       Bond(issue_date_, maturity_date_, redeption_value_, calendar), coupon(coupon_), payment_frequency(payment_frequency_),
       payment_dates(ScheduleGeneration<BusinessDayConvention>::paymentSchedule(issue_date, maturity_date, payment_frequency, calendar)) {}
     double payment() const {
-      return redeption_value * coupon / 100 / static_cast<double>(paymentFrequencyToPaymentsPerYear(payment_frequency));
+      return redeption_value * coupon / 100 / static_cast<double>(paymentFrequencyPaymentsPerYear.at(payment_frequency));
     }
     double paymentsRemaining(date settle_date) const {
       checkValidSettle(settle_date);
@@ -94,7 +94,7 @@ namespace logiql {
     }
     virtual double modifiedDuration(date settle_date, double yield) const override {
       checkValidSettle(settle_date);
-      double k = paymentFrequencyToPaymentsPerYear(payment_frequency);
+      double k = paymentFrequencyPaymentsPerYear.at(payment_frequency);
       return macaulayDuration(settle_date, yield)/(1.0 + yield/100.0/k);
     }
     virtual CashFlowsT cashflows() const override {
