@@ -1,6 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
 #include <logiql/logiql.utils.hpp>
+#include <logiql/simple.data.hpp>
 
 using namespace boost::gregorian;
 using namespace logiql;
@@ -21,14 +22,7 @@ TEST_CASE("julianDiff performs date arithmetic") {
     REQUIRE(julianDiff(d1, d2) == -3);
   }
 }
-TEST_CASE("payment frequencies are coherent") {
-  SECTION("ToMonths and PerYear should multiply to 12") {
-    REQUIRE((paymentFrequencyToMonths(PaymentFrequencyT::Annual) * paymentFrequencyToPaymentsPerYear(PaymentFrequencyT::Annual)) == 12);
-    REQUIRE((paymentFrequencyToMonths(PaymentFrequencyT::SemiAnnual) * paymentFrequencyToPaymentsPerYear(PaymentFrequencyT::SemiAnnual)) == 12);
-    REQUIRE((paymentFrequencyToMonths(PaymentFrequencyT::Quarterly) * paymentFrequencyToPaymentsPerYear(PaymentFrequencyT::Quarterly)) == 12);
-    REQUIRE((paymentFrequencyToMonths(PaymentFrequencyT::Monthly) * paymentFrequencyToPaymentsPerYear(PaymentFrequencyT::Monthly)) == 12);
-  }
-}
+
 TEST_CASE("date/partial matching works") {
   SECTION("vanilla dates behave like ==") {
     date d(2015, 5, 15);
