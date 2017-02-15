@@ -1,4 +1,4 @@
-CXX = clang++-3.6
+CXX = clang++
 CXXFLAGS = -g -Wall -std=c++11
 INC=-I..
 LIBS =
