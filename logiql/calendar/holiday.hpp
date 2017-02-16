@@ -2,7 +2,7 @@
 
 #include <algorithm>
 #include <boost/date_time/gregorian/gregorian.hpp>
-#include <logiql/logiql.utils.hpp>
+#include <logiql/utils/utils.hpp>
 
 namespace logiql {
   using namespace boost::gregorian;

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <boost/date_time/gregorian/gregorian.hpp>
-#include <logiql/simple.types.hpp>
+#include <logiql/types.hpp>
 
 namespace logiql {
   using namespace boost::gregorian;

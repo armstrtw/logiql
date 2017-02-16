@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <boost/date_time/gregorian/gregorian.hpp>
-#include <logiql/holiday.hpp>
+#include <logiql/calendar/holiday.hpp>
 
 namespace logiql {
   using namespace boost::gregorian;

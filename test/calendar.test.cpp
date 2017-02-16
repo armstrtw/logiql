@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
-#include <logiql/calendar.hpp>
+#include <logiql/calendar/calendar.hpp>
 
 using namespace boost::gregorian;
 using namespace logiql;

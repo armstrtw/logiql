@@ -2,8 +2,7 @@
 
 #include <stdexcept>
 
-#include <logiql/simple.types.hpp>
-#include <logiql/fixed.income/bonds/bond.hpp>
+#include <logiql/instruments/bond.hpp>
 #include <logiql/policies/schedule.generation.policies.hpp>
 #include <logiql/policies/businessday.policies.hpp>
 #include <logiql/policies/daycount.policies.hpp>

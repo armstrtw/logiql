@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
-#include <logiql/logiql.utils.hpp>
-#include <logiql/simple.data.hpp>
+#include <logiql/utils/utils.hpp>
+#include <logiql/data.hpp>
 
 using namespace boost::gregorian;
 using namespace logiql;

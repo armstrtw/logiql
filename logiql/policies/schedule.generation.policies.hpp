@@ -2,9 +2,9 @@
 
 #include <stdexcept>
 #include <boost/date_time/gregorian/gregorian.hpp>
-#include <logiql/simple.types.hpp>
-#include <logiql/simple.data.hpp>
-#include <logiql/logiql.utils.hpp>
+#include <logiql/types.hpp>
+#include <logiql/data.hpp>
+#include <logiql/utils/utils.hpp>
 
 
 namespace logiql {

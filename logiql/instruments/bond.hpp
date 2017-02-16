@@ -1,18 +1,12 @@
 #pragma once
 
 #include <stdexcept>
-#include <logiql/simple.types.hpp>
-#include <logiql/logiql.utils.hpp>
-#include <logiql/calendar.hpp>
+#include <logiql/utils/utils.hpp>
+#include <logiql/calendar/calendar.hpp>
+#include <logiql/instruments/instrument.hpp>
 
 namespace logiql {
   using namespace boost::gregorian;
-
-  class Investment {
-  public:
-    virtual CashFlowsT cashflows() const = 0;
-    virtual CashFlowsT cashflows(date settle_date) const = 0;
-  };
 
   class Bond : public Investment {
   public:
